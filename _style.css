@@ -1,3 +1,17 @@
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 900;
+  src: local('Merriweather Black'), local('Merriweather-Black'), url(https://fonts.gstatic.com/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l52_wFZWMf6.woff2) format('woff2');
+}
+
+@font-face {
+  font-family: 'Merriweather';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Merriweather Light'), local('Merriweather-Light'), url(https://fonts.gstatic.com/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l521wRZWMf6.woff2) format('woff2');
+}
+
 body {
     max-width: 45rem;
     margin: auto;
@@ -7,7 +21,7 @@ body {
     padding: 0 2rem;
     color: #222233;
     background: #fcfcfc;
-    font-family: "sans-serif";
+    font-family: "Merriweather";
 }
 
 h3 {
