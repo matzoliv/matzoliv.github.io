@@ -6,8 +6,3 @@ PGP keys : [59C5C6B3219C994B](./omatz_at_fastmail_dot_com.asc)
 
 GitHub : [https://github.com/matzoliv](https://github.com/matzoliv)
 
-### Sections
-
-- [Software](./software.html)
-
-- [Posts](./posts/)
