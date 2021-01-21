@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>omatz - GNU parallel in much fewer lines of bash</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+  </head>
+  <body>
+    <header>
+      <h1>omatz</h1>
+      <nav>
+        <a href="/">About</a>
+        <a href="/posts/">Posts</a>
+        <a href="/software.html">Software</a>                
+      </nav>
+    </header>
+
+    <main>
+<h1>GNU parallel in much fewer lines of bash</h1>
+
+<p><em>Full shell script here : <a href="./parallel.sh">parallel.sh</a></em></p>
+
+<p>Let&rsquo;s say you have a large number of wav files that you want to encode.
+Chances are your computer has more than one core, so you want to process
+more than one file at a time. On the other hand, immediately spawning one
+task for each file might overwhelm your computer. Using the shell, how do you
+process a set of items using a target number of parallel workers ?</p>
+
+<p>Sure, you can use <a href="https://www.gnu.org/software/parallel/">GNU parallel</a>, but
+surely there must be straightforward way to implement it ourselves, right ?
+Well, yes, and here it is :</p>
+
+<p>Spawn a fixed set of shell jobs that share the same standard input :</p>
+
+<pre><code>for i in $(seq $worker_count)
+do
+    spawn_worker &amp;
+done &lt;&amp;0
+</code></pre>
+
+<p>Each worker reads a line from their standard input, run a command
+giving this line as a parameter, and loops until the end of the input.</p>
+
+<pre><code>spawn_worker() {
+    next_item=$(read_next)
+
+    while [ -n "$next_item" ]; do
+        $task "$next_item" &lt; /dev/null
+        next_item=$(read_next)
+    done
+}
+</code></pre>
+
+<p>The tricky part is to make sure that workers read lines from the
+shared standard input <em>transactionally</em> (i.e. readers stepping on
+each others toes might read partial or mangled lines). To achieve
+that, we serialize reading from the input using flock around a temporary file.</p>
+
+<pre><code>read_next() {
+    (
+        flock -x 200
+        read line
+        echo $line
+    ) 200&gt; $lock_file
+}
+</code></pre>
+
+<p>The complete solution can be bundled in a 30 lines <a href="./parallel.sh">shell script</a>
+that can be used like this :</p>
+
+<pre><code># find . -name '*.wav' | parallel.sh 3 oggenc
+</code></pre>
+    </main>
+  </body>
+</html>

@@ -3,6 +3,6 @@
 for i in *; do
     if [ -d "$i" ]; then
 	title=$(sed -nE 's/^# (.*)/\1/p' < "$i/index.md" | head -n 1)
-	printf -- '- [%s - %s](%s)' "$i" "$title" "$i"
+	printf -- '- [%s - %s](%s)\n' "$i" "$title" "$i"
     fi
-done | ../mkpage.sh Posts
+done | sort -r | ../mkpage.sh Posts
