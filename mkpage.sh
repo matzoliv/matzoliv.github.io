@@ -23,7 +23,6 @@ cat - << EOF
       <nav>
         <a href="/">About</a>
         <a href="/posts/">Posts</a>
-        <a href="/software.html">Software</a>                
       </nav>
     </header>
 

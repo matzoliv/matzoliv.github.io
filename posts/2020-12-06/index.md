@@ -53,46 +53,12 @@ I guess).
 ## Show me the code, please
 
 Here's a commented implementation in clojure that you can try for
-yourself :
+yourself : [https://github.com/matzoliv/cartesian-product-inf/blob/main/src/cartesian_product_inf/core.clj](https://github.com/matzoliv/cartesian-product-inf/blob/main/src/cartesian_product_inf/core.clj)
+
+Here's how it looks like when applied to 3 sets of natural integers
 
 ```clojure
-(ns inthedust.core
-  (:require [clojure.math.combinatorics :refer [cartesian-product]]))
-
-(defn cartesian-product-by-rank [& seqs-init]
-  (let [gen-for-rank
-        (fn [elems-at-rank rank]
-          (->>
-           ;; compute all the permutations of pinned / unpinned sequences
-           (apply cartesian-product
-                  (map (fn [elem-at-rank seq-init]
-                         [(take rank seq-init) ;; unpinned sequence
-                          [elem-at-rank]]) ;; pinned sequence
-                       elems-at-rank
-                       seqs-init))
-           ;; drop the first combination of all unpinned sequences
-           ;; which would lead to produce all elements of previous ranks.
-           (rest)
-           ;; use those as successive arguments to a cartesian product
-           ;; and concatenate everything
-           (mapcat (partial apply cartesian-product))))
-        ;; iterate all ranks
-        gen-all
-        (fn gen-all [seqs rank]
-          (and (some seq seqs)
-               (cons (gen-for-rank (map first seqs) rank)
-                     (lazy-seq (gen-all (map rest seqs) (inc rank))))))]
-    (cons
-     ;; the very first element
-     (map first seqs-init)
-     ;; plus the concatenation of all ranks
-     (apply concat (gen-all (map rest seqs-init) 1)))))
-```
-
-Here's how it looks like when apply to 3 sets of natural integers
-
-```clojure
-> (take 50 (cartesian-product-by-rank (rest (range)) (rest (range)) (rest (range))))
+> (take 15 (cartesian-product-by-rank (rest (range)) (rest (range)) (rest (range))))
 ((1 1 1)
  (1 1 2)
  (1 2 1)
@@ -107,40 +73,5 @@ Here's how it looks like when apply to 3 sets of natural integers
  (2 2 3)
  (1 3 1)
  (1 3 2)
- (2 3 1)
- (2 3 2)
- (1 3 3)
- (2 3 3)
- (3 1 1)
- (3 1 2)
- (3 2 1)
- (3 2 2)
- (3 1 3)
- (3 2 3)
- (3 3 1)
- (3 3 2)
- (3 3 3)
- (1 1 4)
- (1 2 4)
- (1 3 4)
- (2 1 4)
- (2 2 4)
- (2 3 4)
- (3 1 4)
- (3 2 4)
- (3 3 4)
- (1 4 1)
- (1 4 2)
- (1 4 3)
- (2 4 1)
- (2 4 2)
- (2 4 3)
- (3 4 1)
- (3 4 2)
- (3 4 3)
- (1 4 4)
- (2 4 4)
- (3 4 4)
- (4 1 1)
- (4 1 2))
+ (2 3 1))
 ```

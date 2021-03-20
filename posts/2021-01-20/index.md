@@ -1,6 +1,6 @@
 # GNU parallel in much fewer lines of bash
 
-_Full shell script here : [parallel.sh](./parallel.sh)_
+_Full shell script here : [parallel.sh](https://github.com/matzoliv/parallel.sh/blob/main/parallel.sh)_
 
 Let's say you have a large number of wav files that you want to encode.
 Chances are your computer has more than one core, so you want to process 
@@ -50,7 +50,7 @@ read_next() {
 }
 ```
 
-The complete solution can be bundled in a 30 lines [shell script](./parallel.sh)
+The complete solution can be bundled in a 30 lines [shell script](https://github.com/matzoliv/parallel.sh/blob/main/parallel.sh)
 that can be used like this :
 
 ```
