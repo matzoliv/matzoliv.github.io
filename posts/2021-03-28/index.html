@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>omatz - My RSS toolbox</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="/sp.css">
+  </head>
+  <body>
+    <header>
+      <h3>omatz</h3>
+      <nav>
+        <a href="/">About</a>
+        <a href="/posts/">Posts</a>
+      </nav>
+    </header>
+
+    <main>
+<h1>My RSS toolbox</h1>
+
+<p>First step, let&rsquo;s use curl to grab the data.</p>
+
+<pre><code class="shell">curl --compressed -L -s https://ferd.ca/feed.rss
+</code></pre>
+
+<p>Then, we&rsquo;ll convert the XML to a format more amenable to being processed
+with UNIX tools. We&rsquo;ll opt for TSV, that is, one entry per line, tab-separated
+fields in order :</p>
+
+<pre><code>&lt;entry id&gt;  &lt;timestamp&gt; &lt;title&gt; &lt;url&gt;
+</code></pre>
+
+<p>I found that the
+easiest way to do this is through a python script using the base <code>ElementTree</code>
+library. Scripts that should cover the vast majority of cases can be found <a href="">here</a>.
+Because the data might vary from website to website, you might need to make a custom
+one for a particular website. All that matters is that you end up writing the same
+format as shown above.</p>
+
+<pre><code>curl --compressed -L -s https://ferd.ca/feed.rss | \
+    ./feed2tsv/rss2tsv.py
+</code></pre>
+
+<p>Now we need a way to detect novelty. <code>print_new_update.py</code> is a script that reads TSV
+entries in its standard input, and will write back only lines that it never seen before.
+State is stored in a text file whose path you provide as a command line parameter.</p>
+
+<pre><code>curl --compressed -L -s https://ferd.ca/feed.rss | \
+    ./feed2tsv/rss2tsv.py | \
+    ./print_new_update.py ferd.seen
+</code></pre>
+
+<p>Next we want a way to browse what we found. I like to use my emails in Maildir format
+for all sorts of things, and it&rsquo;s a perfect fit to browse RSS feeds too. <code>write_to_maildir.sh</code>
+is a script that uses the great <a href="https://github.com/leahneukirchen/mblaze">mblaze</a> tools
+to create new entries in a Maildir folder. All scripts will also write back the lines they
+consumed in their standard output so that they can be chained.</p>
+
+<pre><code>curl --compressed -L -s https://ferd.ca/feed.rss | \
+    ./feed2tsv/rss2tsv.py | \
+    ./print_new_update.py ferd.seen | \
+    ./write_to_maildir.sh ferd ~/mail/rss/blogs/
+</code></pre>
+
+<p>Another thing I like to do is read web content from my Kindle. I&rsquo;ve played around
+with many ways to convert web pages to something readable on a Kindle screen, but I&rsquo;ve
+finally settled on printing A6 format PDFs of mobile versions of website using Chromium
+and <a href="https://github.com/puppeteer/puppeteer/">puppeteer</a>. <a href="">url2pdf</a> is a small node
+tools that takes a URL and will output a PDF of a format perfectly readable on a Kindle
+paperwhite. <code>make_pdfs.sh</code> is a script that uses <code>url2pdf</code> and reads TSV data to ouptut
+kindle PDFs to a given directory.</p>
+
+<pre><code>curl --compressed -L -s https://ferd.ca/feed.rss | \
+    ./feed2tsv/rss2tsv.py | \
+    ./print_new_update.py ferd.seen | \
+    ./write_to_maildir.sh ferd ~/mail/rss/blogs/ | \
+    ./make_pdfs.sh ferd /media/omatz/Kindle/documents/web
+</code></pre>
+
+<p>Using this pattern, there&rsquo;s so much more that can be done. Automatically download
+podcast (printing the &ldquo;enclosure&rdquo; url instead of the &ldquo;link&rdquo;), or download content
+from youtube channels using <code>youtube-dl</code>, the possibilities are endless.</p>
+    </main>
+  </body>
+</html>

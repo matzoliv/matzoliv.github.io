@@ -6,7 +6,7 @@ else
     title_suffix=""
 fi
 
-# <link rel="stylesheet" href="/pico.slim.min.css">
+# <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 
 cat - << EOF
 <!DOCTYPE html>
@@ -15,11 +15,11 @@ cat - << EOF
     <title>omatz$title_suffix</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <link rel="stylesheet" href="/sp.css">
   </head>
   <body>
     <header>
-      <h1>omatz</h1>
+      <h3>omatz</h3>
       <nav>
         <a href="/">About</a>
         <a href="/posts/">Posts</a>
@@ -36,4 +36,3 @@ cat - << EOF
   </body>
 </html>
 EOF
-
