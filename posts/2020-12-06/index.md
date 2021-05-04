@@ -53,7 +53,7 @@ I guess).
 ## Show me the code, please
 
 Here's a commented implementation in clojure that you can try for
-yourself : [https://github.com/matzoliv/cartesian-product-inf/blob/main/src/cartesian_product_inf/core.clj](https://github.com/matzoliv/cartesian-product-inf/blob/main/src/cartesian_product_inf/core.clj)
+yourself : [https://github.com/oliviermatz/cartesian-product-inf/blob/main/src/cartesian_product_inf/core.clj](https://github.com/matzoliv/cartesian-product-inf/blob/main/src/cartesian_product_inf/core.clj)
 
 Here's how it looks like when applied to 3 sets of natural integers
 

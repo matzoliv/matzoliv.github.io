@@ -1,9 +1,9 @@
 # GNU parallel in much fewer lines of bash
 
-_Full shell script here : [parallel.sh](https://github.com/matzoliv/parallel.sh/blob/main/parallel.sh)_
+_Full shell script here : [parallel.sh](https://github.com/oliviermatz/parallel.sh/blob/main/parallel.sh)_
 
 Let's say you have a large number of wav files that you want to encode.
-Chances are your computer has more than one core, so you want to process 
+Chances are your computer has more than one core, so you want to process
 more than one file at a time. On the other hand, immediately spawning one
 task for each file might overwhelm your computer. Using the shell, how do you
 process a set of items using a target number of parallel workers ?
@@ -27,7 +27,7 @@ giving this line as a parameter, and loops until the end of the input.
 ```
 spawn_worker() {
     next_item=$(read_next)
-    
+
     while [ -n "$next_item" ]; do
         $task "$next_item" < /dev/null
         next_item=$(read_next)
@@ -35,7 +35,7 @@ spawn_worker() {
 }
 ```
 
-The tricky part is to make sure that workers read lines from the 
+The tricky part is to make sure that workers read lines from the
 shared standard input _transactionally_ (i.e. readers stepping on
 each others toes might read partial or mangled lines). To achieve
 that, we serialize reading from the input using flock around a temporary file.
@@ -50,10 +50,9 @@ read_next() {
 }
 ```
 
-The complete solution can be bundled in a 30 lines [shell script](https://github.com/matzoliv/parallel.sh/blob/main/parallel.sh)
+The complete solution can be bundled in a 30 lines [shell script](https://github.com/oliviermatz/parallel.sh/blob/main/parallel.sh)
 that can be used like this :
 
 ```
 # find . -name '*.wav' | parallel.sh 3 oggenc
 ```
-

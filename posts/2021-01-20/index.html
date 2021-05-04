@@ -18,7 +18,7 @@
     <main>
 <h1>GNU parallel in much fewer lines of bash</h1>
 
-<p><em>Full shell script here : <a href="https://github.com/matzoliv/parallel.sh/blob/main/parallel.sh">parallel.sh</a></em></p>
+<p><em>Full shell script here : <a href="https://github.com/oliviermatz/parallel.sh/blob/main/parallel.sh">parallel.sh</a></em></p>
 
 <p>Let&rsquo;s say you have a large number of wav files that you want to encode.
 Chances are your computer has more than one core, so you want to process
@@ -65,13 +65,11 @@ that, we serialize reading from the input using flock around a temporary file.</
 }
 </code></pre>
 
-<p>The complete solution can be bundled in a 30 lines <a href="https://github.com/matzoliv/parallel.sh/blob/main/parallel.sh">shell script</a>
+<p>The complete solution can be bundled in a 30 lines <a href="https://github.com/oliviermatz/parallel.sh/blob/main/parallel.sh">shell script</a>
 that can be used like this :</p>
 
 <pre><code># find . -name '*.wav' | parallel.sh 3 oggenc
 </code></pre>
-
-
     </main>
   </body>
 </html>
