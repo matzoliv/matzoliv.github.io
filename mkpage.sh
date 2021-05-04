@@ -19,7 +19,7 @@ cat - << EOF
   </head>
   <body>
     <header>
-      <h3>omatz</h3>
+      <h3><a href="/">omatz</a></h3>
       <nav>
         <a href="/">About</a>
         <a href="/posts/">Posts</a>
