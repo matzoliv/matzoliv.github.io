@@ -18,6 +18,14 @@
     <main>
 <h1>My RSS toolbox</h1>
 
+<p>I&rsquo;ve developped my own RSS feed reading system as a set of small
+composable scripts. The code can be found here :
+<a href="https://github.com/oliviermatz/rss-toolbox">https://github.com/oliviermatz/rss-toolbox</a>.</p>
+
+<p>There&rsquo;s an <code>example.sh</code> file in the repository that show cases how to implement
+common use cases. Here, we&rsquo;ll dive into the purpose of each parts so that you can
+compose your own.</p>
+
 <p>First step, let&rsquo;s use curl to grab the data.</p>
 
 <pre><code class="shell">curl --compressed -L -s https://ferd.ca/feed.rss
@@ -32,7 +40,7 @@ fields in order :</p>
 
 <p>I found that the
 easiest way to do this is through a python script using the base <code>ElementTree</code>
-library. Scripts that should cover the vast majority of cases can be found <a href="">here</a>.
+library. Scripts that should cover the vast majority of cases can be found <a href="https://github.com/oliviermatz/rss-toolbox/tree/master/feed2tsv">here</a>.
 Because the data might vary from website to website, you might need to make a custom
 one for a particular website. All that matters is that you end up writing the same
 format as shown above.</p>
