@@ -1,0 +1,179 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+html {
+    font-size: 1em;
+    line-height: 1.25rem;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+}
+body {
+    margin: 0 auto;
+    max-width: 35em;
+    font-family: "Merriweather", serif;
+    padding: 0 1.25rem;
+    padding-bottom: 3.75rem;
+    position: relative;
+}
+header h1 {
+    font-size: 1.0em;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 1.25rem 0;
+}
+h1 {
+    font-size: 1.5em;
+    line-height: 2.5rem;
+}
+h2, h3, h4, h5, h6 {
+    font-size: 1em;
+    line-height: 1.25rem;
+}
+h1 {
+    font-weight: bold;
+}
+h2 {
+    font-weight: bold;
+}
+h3 {
+    font-weight: inherit;
+    font-variant: small-caps;
+}
+h4 {
+    font-weight: inherit;
+    font-style: italic;
+}
+h5 {
+    font-weight: inherit;
+    font-size: 0.875em;
+}
+h6 {
+    font-weight: inherit;
+    font-size: 0.75em;
+}
+li {
+    margin: 0.5rem 0;
+}
+div, ul, ol, address, table, pre, nav, aside, figure {
+    margin: 1.25rem 0;
+}
+p {
+    margin: 0;
+}
+p + p {
+    text-indent: 1.25rem;
+}
+ul, ol {
+    padding-left: 0;
+    margin-left: 2.5rem;
+}
+li ul, li ol {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+dt {
+    margin-top: 1.25rem;
+}
+dt + dt {
+    margin-top: 0;
+}
+dd {
+    margin-bottom: 1.25rem;
+    margin-left: 2.5rem;
+}
+blockquote {
+    margin: 1.25rem 2.5rem;
+}
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+thead {
+    border-bottom: 0.125rem solid currentColor;
+}
+tfoot {
+    border-top: 0.125rem solid currentColor;
+}
+thead th, tfoot th, thead td, tfoot td {
+    line-height: 1.125rem;
+}
+td, th {
+    font-size: 0.75rem;
+    padding: 0 0.625rem;
+}
+td:first-child, th:first-child {
+    padding-left: 0;
+}
+td:last-child, th:last-child {
+    padding-right: 0;
+}
+pre {
+    margin-left: 2em;
+}
+pre code {
+    font-size: 0.8rem;
+}
+code {
+    font-family: monospace;
+    hyphens: none;
+}
+nav {
+    font-size: 1.0rem;
+    line-height: 1.25rem;
+}
+nav a {
+    margin-left: 0.5rem;
+}
+:link {
+    color: #55C;
+}
+:link:hover {
+    color: #33E;
+    background: rgba(0, 0, 0, 0.1);
+}
+:visited {
+    color: #848;
+}
+:visited:hover {
+    color: #A3A;
+}
+:link:active, :visited:active {
+    color: #E33;
+}
+tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.1);
+}
+@font-face {
+    font-family: 'Merriweather';
+    font-style: normal;
+    font-weight: 900;
+    src: local('Merriweather Black'), local('Merriweather-Black'), url(https://fonts.gstatic.com/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l52_wFZWMf6.woff2) format('woff2');
+}
+@font-face {
+    font-family: 'Merriweather';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Merriweather Light'), local('Merriweather-Light'), url(https://fonts.gstatic.com/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l521wRZWMf6.woff2) format('woff2');
+}
+html {
+    background: #fcfcfc;
+    color: #333333;
+}
+@media (prefers-color-scheme: dark) {
+  html {
+    color: #bbb;
+    background: #222;
+  }
+  a:link, a:visited {
+    color: #9bf;
+  }
+  a:hover, a:active {
+    color: #acf;
+  }
+  pre kbd {
+    color: #9c9;
+  }
+}

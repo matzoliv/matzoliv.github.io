@@ -4,11 +4,11 @@
     <title>omatz - Cartesian product of infinite sequences</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="/sp.css">
+    <link rel="stylesheet" href="/style.css">
   </head>
   <body>
     <header>
-      <h3>omatz</h3>
+      <h1>omatz</h1>
       <nav>
         <a href="/">About</a>
         <a href="/posts/">Posts</a>
@@ -27,8 +27,9 @@ put it both in words &amp; in code.</p>
 <h2>The problem with regular cartesian product methods</h2>
 
 <p>By generating a cartesian product lexicographically, you will get
-&ldquo;stuck&rdquo; iterating through an infinite sequence, never picking any
-other element from the other sequences. To illustrate, here&rsquo;s how
+&ldquo;stuck&rdquo; iterating through one of the infinite sequences,
+never picking subsequent elements from the other sequences.
+To illustrate, here&rsquo;s how
 you would generate a cartesian product in lexicographic order :</p>
 
 <pre><code>Let N be the set of natural numbers
@@ -40,38 +41,42 @@ for x in N
 </code></pre>
 
 <p>In this case, we would never leave the inner-most loop, leaving x
-and y never changing value.</p>
+and y unchanged from their initial values, while incrementing <code>z</code>
+to infinity.</p>
 
 <h2>And now, to the solution</h2>
 
-<p>Let the <code>rank</code> of a tuple be the maximum index of any of its element in
-its originating sequence. Using our last example with natural numbers :</p>
+<p>Let&rsquo;s consider an element from the resulting sequence: it would be a tuple
+of elements from the input sequences, each one occuring at a specific index
+in their respective originating sequence.
+Let the <code>rank</code> of an element in the resulting sequence be the maximum index
+of any one of its constituent. Using our last example with natural numbers :</p>
 
 <pre><code>x ∈ N x N x N
 x = (10, 30, 20)
 rank( x ) = 30
 </code></pre>
 
-<p>because the second element is the 30th element of the natural numbers.</p>
+<p>Because 30 is the 30th element of <code>N</code>, and other constituents occur at a lower
+index in <code>N</code>, then the rank of <code>(10, 30, 20)</code> is 30.</p>
 
-<p>The idea consists of computing elements of the cartesian product
+<p>The solution consists of iterating elements of the cartesian product
 in increasing order of rank. To find elements of a given rank <code>n</code>,
 we can &ldquo;pin&rdquo; some sequences to their nth element, and limit other sequences
-to their <code>n - 1</code> first elements. Then a lexicographic cartesian product
-function is used to generate a subset of the rank. To cover the entire
-rank, we need to do this for all combinations of &ldquo;pinned&rdquo;
-positions, which we can generate using, you guessed it, a lexicographic
-cartesian product function.</p>
+to their <code>n - 1</code> first elements. From a given combination of pinned and unpinned
+sequences, a lexicographic cartesian product function is used to generate a subset
+of the rank.</p>
 
-<p>I thought it was kind of clever (in a that-code-is-unreadable way,
+<p>To cover the entire rank, we need to do this for all combinations of &ldquo;pinned&rdquo;
+positions, which we can generate using, you guessed it, a lexicographic
+cartesian product function.
+I thought it was kind of clever (in a that-code-is-unreadable way,
 I guess).</p>
 
 <h2>Show me the code, please</h2>
 
-<p>Here&rsquo;s a commented implementation in clojure that you can try for
-yourself : <a href="https://github.com/matzoliv/cartesian-product-inf/blob/main/src/cartesian_product_inf/core.clj">https://github.com/oliviermatz/cartesian-product-inf/blob/main/src/cartesian_product_inf/core.clj</a></p>
-
-<p>Here&rsquo;s how it looks like when applied to 3 sets of natural integers</p>
+<p>Here&rsquo;s a <a href="https://github.com/matzoliv/cartesian-product-inf/blob/main/src/cartesian_product_inf/core.clj">commented implementation in clojure</a> that you can try for
+yourself. Here&rsquo;s how it looks like when applied to 3 sets of natural integers :</p>
 
 <pre><code class="clojure">&gt; (take 15 (cartesian-product-by-rank (rest (range)) (rest (range)) (rest (range))))
 ((1 1 1)

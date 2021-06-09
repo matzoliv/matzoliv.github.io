@@ -15,11 +15,11 @@ cat - << EOF
     <title>omatz$title_suffix</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="/sp.css">
+    <link rel="stylesheet" href="/style.css">
   </head>
   <body>
     <header>
-      <h3>omatz</h3>
+      <h1>omatz</h1>
       <nav>
         <a href="/">About</a>
         <a href="/posts/">Posts</a>
