@@ -22,18 +22,16 @@
 composable scripts. The code can be found here :
 <a href="https://github.com/oliviermatz/rss-toolbox">https://github.com/oliviermatz/rss-toolbox</a>.</p>
 
-<p>There&rsquo;s an <code>example.sh</code> file in the repository that show cases how to implement
+<p>There&rsquo;s an <a href="https://github.com/oliviermatz/rss-toolbox/blob/master/example.sh"><code>example.sh</code></a> file in the repository that show cases how to implement
 common use cases. Here, we&rsquo;ll dive into the purpose of each parts so that you can
-compose your own.</p>
-
-<p>First step, let&rsquo;s use curl to grab the data.</p>
+compose your own. First step, let&rsquo;s use curl to grab the data.</p>
 
 <pre><code class="shell">curl --compressed -L -s https://ferd.ca/feed.rss
 </code></pre>
 
 <p>Then, we&rsquo;ll convert the XML to a format more amenable to being processed
 with UNIX tools. We&rsquo;ll opt for TSV, that is, one entry per line, tab-separated
-fields in order :</p>
+fields, of the following format :</p>
 
 <pre><code>&lt;entry id&gt;  &lt;timestamp&gt; &lt;title&gt; &lt;url&gt;
 </code></pre>
@@ -42,15 +40,15 @@ fields in order :</p>
 easiest way to do this is through a python script using the base <code>ElementTree</code>
 library. Scripts that should cover the vast majority of cases can be found <a href="https://github.com/oliviermatz/rss-toolbox/tree/master/feed2tsv">here</a>.
 Because the data might vary from website to website, you might need to make a custom
-one for a particular website. All that matters is that you end up writing the same
-format as shown above.</p>
+one. All that matters is that you end up writing the same
+fields to the standard output.</p>
 
 <pre><code>curl --compressed -L -s https://ferd.ca/feed.rss | \
     ./feed2tsv/rss2tsv.py
 </code></pre>
 
-<p>Now we need a way to detect novelty. <code>print_new_update.py</code> is a script that reads TSV
-entries in its standard input, and will write back only lines that it never seen before.
+<p>Now we need a way to detect novelty. <a href="https://github.com/oliviermatz/rss-toolbox/blob/master/print_new_update.py"><code>print_new_update.py</code></a> is a script that reads TSV
+entries in its standard input, and will write back only lines that it has never seen before.
 State is stored in a text file whose path you provide as a command line parameter.</p>
 
 <pre><code>curl --compressed -L -s https://ferd.ca/feed.rss | \
@@ -59,7 +57,7 @@ State is stored in a text file whose path you provide as a command line paramete
 </code></pre>
 
 <p>Next we want a way to browse what we found. I like to use my emails in Maildir format
-for all sorts of things, and it&rsquo;s a perfect fit to browse RSS feeds too. <code>write_to_maildir.sh</code>
+for all sorts of things, and it&rsquo;s a perfect fit to browse RSS feeds too. <a href="https://github.com/oliviermatz/rss-toolbox/blob/master/write_to_maildir.sh"><code>write_to_maildir.sh</code></a>
 is a script that uses the great <a href="https://github.com/leahneukirchen/mblaze">mblaze</a> tools
 to create new entries in a Maildir folder. All scripts will also write back the lines they
 consumed in their standard output so that they can be chained.</p>
@@ -73,9 +71,9 @@ consumed in their standard output so that they can be chained.</p>
 <p>Another thing I like to do is read web content from my Kindle. I&rsquo;ve played around
 with many ways to convert web pages to something readable on a Kindle screen, but I&rsquo;ve
 finally settled on printing A6 format PDFs of mobile versions of website using Chromium
-and <a href="https://github.com/puppeteer/puppeteer/">puppeteer</a>. <a href="">url2pdf</a> is a small node
+and <a href="https://github.com/puppeteer/puppeteer/">puppeteer</a>. <a href="https://github.com/oliviermatz/rss-toolbox/tree/master/url2pdf"><code>url2pdf</code></a> is a tiny node
 tools that takes a URL and will output a PDF of a format perfectly readable on a Kindle
-paperwhite. <code>make_pdfs.sh</code> is a script that uses <code>url2pdf</code> and reads TSV data to ouptut
+paperwhite. <a href="https://github.com/oliviermatz/rss-toolbox/blob/master/make_pdfs.sh"><code>make_pdfs.sh</code></a> is a script that uses <code>url2pdf</code> and reads TSV data to ouptut
 kindle PDFs to a given directory.</p>
 
 <pre><code>curl --compressed -L -s https://ferd.ca/feed.rss | \
@@ -86,8 +84,11 @@ kindle PDFs to a given directory.</p>
 </code></pre>
 
 <p>Using this pattern, there&rsquo;s so much more that can be done. Automatically download
-podcast (printing the &ldquo;enclosure&rdquo; url instead of the &ldquo;link&rdquo;), or download content
-from youtube channels using <code>youtube-dl</code>, the possibilities are endless.</p>
+podcast using <a href="https://github.com/oliviermatz/rss-toolbox/blob/master/download_podcast.sh"><code>download_podcast.sh</code></a>
+(using <a href="https://github.com/oliviermatz/rss-toolbox/blob/master/feed2tsv/rss2tsv_enclosure.py"><code>rss2tsv_enclosure.py</code></a>
+to get the url of the audio file), or backup content
+from youtube channels using <a href="https://github.com/oliviermatz/rss-toolbox/blob/master/backup_youtube.sh"><code>backup_youtube.sh</code></a>,
+the possibilities are endless.</p>
     </main>
   </body>
 </html>
