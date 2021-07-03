@@ -13,7 +13,7 @@ html {
 body {
     margin: 0 auto;
     max-width: 35em;
-    font-family: "Merriweather", serif;
+    font-family: sans-serif;
     padding: 0 1.25rem;
     padding-bottom: 3.75rem;
     position: relative;
@@ -145,18 +145,6 @@ nav a {
 }
 tr:nth-child(even) {
     background: rgba(0, 0, 0, 0.1);
-}
-@font-face {
-    font-family: 'Merriweather';
-    font-style: normal;
-    font-weight: 900;
-    src: local('Merriweather Black'), local('Merriweather-Black'), url(https://fonts.gstatic.com/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l52_wFZWMf6.woff2) format('woff2');
-}
-@font-face {
-    font-family: 'Merriweather';
-    font-style: normal;
-    font-weight: 300;
-    src: local('Merriweather Light'), local('Merriweather-Light'), url(https://fonts.gstatic.com/s/merriweather/v21/u-4n0qyriQwlOrhSvowK_l521wRZWMf6.woff2) format('woff2');
 }
 html {
     background: #fcfcfc;
